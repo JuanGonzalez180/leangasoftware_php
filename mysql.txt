@@ -1,0 +1,104 @@
+[0]=> string(7) "inm_latitud" 
+[1]=> string(8) "inm_longitud" 
+[2]=> string(2) "ID" 
+[3]=> string(6) "inm_titulo" 
+[4]=> string(10) "inm_anunciante" 
+[5]=> string(11) "inm_descripcion" 
+[6]=> string(9) "inm_reformado" 
+[7]=> string(9) "inm_telefonos" 
+[8]=> string(4) "inm_tipo" 
+[9]=> string(6) "inm_precio" 
+[10]=> string(16) "inm_precio_por_metro" 
+[11]=> string(9) "inm_direccion" 
+[12]=> string(9) "inm_provincia" 
+[13]=> string(6) "inm_ciudad" 
+[14]=> string(16) "inm_metros_cuadrados" 
+[15]=> string(12) "inm_habitaciones" 
+[16]=> string(6) "inm_banos" 
+[17]=> string(7) "inm_parking" 
+[18]=> string(12) "inm_segunda_mano" 
+[19]=> string(19) "inm_armarios_empotrados" 
+[20]=> string(13) "inm_construido_en" 
+[21]=> string(9) "inm_amueblado" 
+[22]=> string(23) "inm_calefaccion_individual" 
+[23]=> string(26) "inm_certificacion_energetica" 
+[24]=> string(6) "inm_planta" 
+[25]=> string(8) "inm_exterior" 
+[26]=> string(8) "inm_interior" 
+[27]=> string(8) "inm_ascensor" 
+[28]=> string(5) "inm_fecha" 
+[29]=> string(5) "inm_calle" 
+[30]=> string(6) "inm_barrio" 
+[31]=> string(8) "inm_distrito" 
+[32]=> string(7) "inm_terraza" 
+[33]=> string(8) "inm_trastero" 
+[34]=> string(15) "inm_cocina_equipada" 
+[35]=> string(15) "inm_cocina_equipada_2" 
+[36]=> string(18) "inm_aire_acondicionado" 
+[37]=> string(7) "inm_piscina" 
+[38]=> string(7) "inm_jardin" 
+[39]=> string(24) "inm_metros_cuadrados_utiles" 
+[40]=> string(41) "inm_apto_movilidad_reducida" 
+[41]=> string(7) "inm_plantas" 
+[42]=> string(19) "inm_mascotas" 
+[43]=> string(7) "inm_balcon"
+
+CREATE TABLE `comercio` (
+  `inm_latitud` varchar(150) NOT NULL,
+  `inm_longitud` varchar(150) NOT NULL,
+  `ID` bigint(20) NOT NULL,
+  `inm_titulo` varchar(250) NOT NULL,
+  `inm_anunciante` varchar(250) NULL,
+  `inm_descripcion` text NULL,
+  `inm_reformado` varchar(250) NULL,
+  `inm_telefonos` varchar(150) NULL,
+  `inm_tipo` varchar(150) NULL,
+  `inm_precio` varchar(150) NULL,
+  `inm_precio_por_metro` varchar(150) NULL,
+  `inm_direccion` varchar(250) NULL,
+  `inm_provincia` varchar(150) NULL,
+  `inm_ciudad` varchar(150) NULL,
+  `inm_metros_cuadrados` varchar(150) NULL,
+  `inm_habitaciones` varchar(100) NULL,
+  `inm_banos` varchar(100) NULL,
+  `inm_parking` varchar(100) NULL,
+  `inm_segunda_mano` varchar(100) NULL,
+  `inm_armarios_empotrados` varchar(100) NULL,
+  `inm_construido_en` varchar(150) NULL,
+  `inm_amueblado` varchar(100) NULL,
+  `inm_calefaccion_individual` varchar(100) NULL,
+  `inm_certificacion_energetica` varchar(100) NULL,
+  `inm_planta` varchar(150) NULL,
+  `inm_exterior` varchar(100) NULL,
+  `inm_interior` varchar(150) NULL,
+  `inm_ascensor` varchar(100) NULL,
+  `inm_fecha` varchar(100) NULL,
+  `inm_calle` varchar(250) NULL,
+  `inm_barrio` varchar(150) NULL,
+  `inm_distrito` varchar(150) NULL,
+  `inm_terraza` varchar(100) NULL,
+  `inm_trastero` varchar(100) NULL,
+  `inm_cocina_equipada` varchar(100) NULL,
+  `inm_cocina_equipada_2` varchar(100) NULL,
+  `inm_aire_acondicionado` int(11) NULL,
+  `inm_piscina` varchar(100) NULL,
+  `inm_jardin` varchar(100) NULL,
+  `inm_metros_cuadrados_utiles` varchar(100) NULL,
+  `inm_apto_movilidad_reducida` varchar(100) NULL,
+  `inm_plantas` varchar(100) NULL,
+  `inm_mascotas` varchar(100) NULL,
+  `inm_balcon` varchar(100) NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `comercio`
+--
+ALTER TABLE `comercio`
+  ADD PRIMARY KEY (`ID`);
+
+
+INSERT INTO `comercio` (`inm_latitud`, `inm_longitud`, `ID`, `inm_titulo`, `inm_anunciante`, `inm_descripcion`, `inm_reformado`, `inm_telefonos`, `inm_tipo`, `inm_precio`, `inm_precio_por_metro`, `inm_direccion`, `inm_provincia`, `inm_ciudad`, `inm_metros_cuadrados`, `inm_habitaciones`, `inm_banos`, `inm_parking`, `inm_segunda_mano`, `inm_armarios_empotrados`, `inm_construido_en`, `inm_amueblado`, `inm_calefaccion_individual`, `inm_certificacion_energetica`, `inm_planta`, `inm_exterior`, `inm_interior`, `inm_ascensor`, `inm_fecha`, `inm_calle`, `inm_barrio`, `inm_distrito`, `inm_terraza`, `inm_trastero`, `inm_cocina_equipada`, `inm_cocina_equipada_2`, `inm_aire_acondicionado`, `inm_piscina`, `inm_jardin`, `inm_metros_cuadrados_utiles`, `inm_apto_movilidad_reducida`, `inm_plantas`, `inm_mascotas`, `inm_balcon`) VALUES ('1', '1', '1', '1asd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

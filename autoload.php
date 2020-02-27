@@ -4,36 +4,58 @@
 // error_reporting(-1);
 // error_reporting(E_ALL);
 
-// Variable de Session
-session_start();
+require 'vendor/autoload.php';
 
 // Vars
 require 'vars/global.php';
 // Clases
-require 'class/conection.php';
-// Functions
-require 'includes/global.php';
 
+// Libs
+require 'libs/MySQL.php';
+require 'libs/GetSQLValueString.php';
+
+// Class
 require 'class/comercioInmobiliario.php';
 
-$rapConection  = new raConection(V_HOSTNAME, V_USERNAME, V_PASSWORD, V_DATABASE, V_TYPE);
-$insConection = $rapConection->connect();
+$comercio = new comercioInmobiliario();
 
-// Variable Global
-$GLOBAL['clsConection'] = $insConection;
+$funcion = 'aad';
 
-$funcion = 'importar';
-if( $funcion == 'importar' ){
-    // Importar Datos.
-
+if( $funcion == 'clear' ){
+    $comercio->clearData();
 }
 
-$comercio = new comercioInmobiliario();
-print __DIR__ . 'assets/resource_accommodation.csv';
-// $comercio->importData( __DIR__ . 'assets/resource_accommodation.csv' );
+if( $funcion == 'import' ){
+    // Importar Datos.
+    print __DIR__ . 'assets/resource_accommodation.csv';
+    $result = $comercio->importData( 'assets/resource_accommodation.csv' );
+    if( $result["registrados"]){
+        print sprintf('Se han registrado %s filas en la base de datos </br>', $result["registrados"]);
+    }
+    if( $result["errores"] ){
+        print sprintf('%s filas no fueron registrados, probablemente ya se encuentran registrados </br>', $result["errores"]);
+    }
+}
 
-/*
-$user = $raUser->raLogin( $username, $password );
+if( $funcion == 'filter' ){
+    $rangoPrecioMin = '';
+    $rangoPrecioMax = '';
+    $habitaciones = '';
+    
+    $result = $comercio->filtrarData( $rangoPrecioMin, $rangoPrecioMax, $habitaciones );
+}
 
-if( $user ){
-}*/
+if( $funcion == 'procesar' ){
+    $comercio->promedioMetroCuadrado( '40.3645198', '-3.5832921', 1 );
+}
+
+if( $funcion == 'export' ){
+    $rangoPrecioMin = '';
+    $rangoPrecioMax = '';
+    $habitaciones = '';
+
+    $tipoReporte = 'csv';
+    
+    $result = $comercio->filtrarData( $rangoPrecioMin, $rangoPrecioMax, $habitaciones );
+    $comercio->export( $result, $tipoReporte );
+}
