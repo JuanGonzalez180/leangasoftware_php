@@ -6,7 +6,7 @@ use Dompdf\Dompdf;
 class comercioInmobiliario{
     private $getSQL;
     private $mysql;
-    private $ruta = 'reports/';
+    private $ruta = _rutaDir;
 
     public function __construct(){
         $mysql  = new MySQL();
@@ -16,6 +16,7 @@ class comercioInmobiliario{
     }
 
     public function importData( $ruta ){
+        $resp = [];
         $resp['code'] = 500;
 
         // Read CSV:
@@ -24,7 +25,6 @@ class comercioInmobiliario{
 
         $textSQL = "INSERT INTO `comercio` (`inm_latitud`, `inm_longitud`, `ID`, `inm_titulo`, `inm_anunciante`, `inm_descripcion`, `inm_reformado`, `inm_telefonos`, `inm_tipo`, `inm_precio`, `inm_precio_por_metro`, `inm_direccion`, `inm_provincia`, `inm_ciudad`, `inm_metros_cuadrados`, `inm_habitaciones`, `inm_banos`, `inm_parking`, `inm_segunda_mano`, `inm_armarios_empotrados`, `inm_construido_en`, `inm_amueblado`, `inm_calefaccion_individual`, `inm_certificacion_energetica`, `inm_planta`, `inm_exterior`, `inm_interior`, `inm_ascensor`, `inm_fecha`, `inm_calle`, `inm_barrio`, `inm_distrito`, `inm_terraza`, `inm_trastero`, `inm_cocina_equipada`, `inm_cocina_equipada_2`, `inm_aire_acondicionado`, `inm_piscina`, `inm_jardin`, `inm_metros_cuadrados_utiles`, `inm_apto_movilidad_reducida`, `inm_plantas`, `inm_mascotas`, `inm_balcon`) VALUES (%s)";
 
-        $resp = [];
         $registrados = 0;
         $errores = 0;
         
@@ -34,6 +34,7 @@ class comercioInmobiliario{
         }
 
         foreach ($csvFile as $line) {
+            $resp['code'] = 200;
             $data = str_getcsv($line);
             // Data
             if( $i !== 0 ){
@@ -41,7 +42,7 @@ class comercioInmobiliario{
                 // getSQL->get valida caracteres especiales y demás.
                 $values = implode(', ', array_map(
                                             function($val){
-                                                return $this->getSQL->get( $val, "text");
+                                                return  $this->getSQL->get( $val, "text");
                                             }, 
                                         $data)
                                 );
@@ -86,7 +87,7 @@ class comercioInmobiliario{
         $concatenar = [];
         
         // Validaciones
-        if( $rangoPrecioMax < $rangoPrecioMin ){
+        if( $rangoPrecioMax && $rangoPrecioMin && $rangoPrecioMax < $rangoPrecioMin ){
             $error = true;
             $resp['message'][] = 'El precio Máximo no puede ser menor que el precio Minimo';
         }
@@ -113,15 +114,15 @@ class comercioInmobiliario{
 
         // Armar condicionales
         if( $rangoPrecioMin !== '' && $rangoPrecioMin >= 0 ){
-            $concatenar[] = sprintf(' inm_precio >= %s ', $this->getSQL->get( $rangoPrecioMin, "text") );
+            $concatenar[] = sprintf(' inm_precio >= %s ', $this->getSQL->get( $rangoPrecioMin, "int") );
         }
 
         if( $rangoPrecioMax !== '' && $rangoPrecioMax >= 0 ){
-            $concatenar[] = sprintf(' inm_precio <= %s ', $this->getSQL->get( $rangoPrecioMax, "text") );
+            $concatenar[] = sprintf(' inm_precio <= %s ', $this->getSQL->get( $rangoPrecioMax, "int") );
         }
 
         if( $habitaciones !== '' && $habitaciones >= 0 ){
-            $concatenar[] = sprintf(' inm_habitaciones = %s ', $this->getSQL->get( $habitaciones, "text") );
+            $concatenar[] = sprintf(' inm_habitaciones = %s ', $this->getSQL->get( $habitaciones, "int") );
         }
 
         $where = '';
@@ -131,14 +132,16 @@ class comercioInmobiliario{
 
         $sql = sprintf("SELECT `inm_latitud`, `inm_longitud`, `ID`, `inm_titulo`, `inm_anunciante`, `inm_descripcion`, `inm_reformado`, `inm_telefonos`, `inm_tipo`, `inm_precio`, `inm_precio_por_metro`, `inm_direccion`, `inm_provincia`, `inm_ciudad`, `inm_metros_cuadrados`, `inm_habitaciones`, `inm_banos`, `inm_parking`, `inm_segunda_mano`, `inm_armarios_empotrados`, `inm_construido_en`, `inm_amueblado`, `inm_calefaccion_individual`, `inm_certificacion_energetica`, `inm_planta`, `inm_exterior`, `inm_interior`, `inm_ascensor`, `inm_fecha`, `inm_calle`, `inm_barrio`, `inm_distrito`, `inm_terraza`, `inm_trastero`, `inm_cocina_equipada`, `inm_cocina_equipada_2`, `inm_aire_acondicionado`, `inm_piscina`, `inm_jardin`, `inm_metros_cuadrados_utiles`, `inm_apto_movilidad_reducida`, `inm_plantas`, `inm_mascotas`, `inm_balcon` 
                             FROM comercio %s", $where );
-        
+
         $result = $this->mysql->query( $sql );
+        $resp['data'] = [];
+        $resp['total'] = 0;
         if( $result ){
             $resp['total'] = $result->num_rows;
-            $resp['data'] = [];
             while ($fila = $result->fetch_assoc()) {
                 $resp['data'][] = $fila;
             }
+            
             $result->free();
             $resp['code'] = 200;
         }
@@ -154,25 +157,25 @@ class comercioInmobiliario{
         // http://www.pabloblanco.es/sql-obtener-coordenadas-en-radio-de-accion/
         // ORDER BY distance; 
         $sql = sprintf("SELECT 
-                            inm_precio, inm_precio_por_metro, inm_metros_cuadrados, inm_latitud, inm_longitud, 
+                            ID, inm_titulo, inm_precio, inm_precio_por_metro, inm_metros_cuadrados, inm_latitud, inm_longitud, 
                             ( 6371 * acos(cos(radians(%s)) * cos(radians(inm_latitud)) * cos(radians(inm_longitud) - radians(%s)) + sin(radians(%s)) * sin(radians(inm_latitud)))) AS distance 
-                            FROM comercio HAVING distance <= %s ",
+                            FROM comercio HAVING distance <= %s ORDER BY distance ",
                             $lat,
                             $lon,
                             $lat,
                             $distancia
                         );
         $result = $this->mysql->query( $sql );
+        $resp['data'] = [];
+        $resp['total'] = 0;
         if( $result ){
             $resp['total'] = $result->num_rows;
-            $resp['data'] = [];
             $precioAcu = 0;
             while ($fila = $result->fetch_assoc()) {
                 $precioAcu += $fila['inm_precio'];
                 $resp['data'][] = $fila;
             }
             $resp['promedio'] = $precioAcu/$resp['total'];
-            print '<br> promedio: ' . round($resp['promedio']);
             $resp['code'] = 200;
 
             $result->free();
@@ -185,13 +188,26 @@ class comercioInmobiliario{
 
     public function export( $data, $tipoReporte = 'pdf' ){
         // 
+        $arrayKeys = array('inm_latitud', 'inm_longitud', 'ID', 'inm_titulo', 'inm_precio', 'inm_habitaciones');
+        $pdf = '';
+        $csv = [];
+        $csv[] = $arrayKeys;
+        foreach( $data['data'] as $item ){
+            foreach( $item as $key => $value  ){
+                if( in_array( $key, $arrayKeys ) ){
+                    $pdf .= '<p>'. ucfirst(str_replace('inm_', '', $key )) .': <b>' . $value . '</b>';
+                    $arrayCSV[$key] = $value;
+                }
+            }
+            $csv[] = $arrayCSV;
+            $pdf .= '<br><br><br>';
+        }
         $nameFile = $this->ruta . 'report-' . date('Ymdhm') . '-' . uniqid();
 
         if( $tipoReporte === 'pdf' ){
-            print 'dompdf';
             // instantiate and use the dompdf class
             $dompdf = new Dompdf();
-            $dompdf->loadHtml(html_entity_decode('hello world'));
+            $dompdf->loadHtml(html_entity_decode($pdf));
 
             // (Optional) Setup the paper size and orientation
             $dompdf->setPaper('A4', 'landscape');
@@ -206,11 +222,34 @@ class comercioInmobiliario{
         if( $tipoReporte === 'csv' ){
             $fp = fopen( $nameFile . '.csv' , 'w');
 
-            foreach ($lista as $campos) {
+            foreach ($csv as $campos) {
                 fputcsv($fp, $campos);
             }
 
             fclose($fp);
         }
+    }
+
+    public function showFiles(){
+        $path = $this->ruta;
+        $dir = opendir($path);
+        $files = array();
+        while ($current = readdir($dir)){
+            if( $current != "." && $current != "..") {
+                if(is_dir($path.$current)) {
+                    showFiles($path.$current.'/');
+                }
+                else {
+                    $files[] = $current;
+                }
+            }
+        }
+        
+        $resp = [];
+        $resp['files'] = [];
+        for($i=0; $i<count( $files ); $i++){
+            $resp['files'][] =$files[$i];
+        }
+        return $resp;
     }
 }

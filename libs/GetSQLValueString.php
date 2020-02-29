@@ -21,7 +21,7 @@ class GetSQLValueString{
             break;
 
             case "double":
-            $theValue = ($theValue != "") ? "'" . doubleval($theValue) . "'" : "NULL";
+            $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
             break;
 
             case "date":

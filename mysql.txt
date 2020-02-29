@@ -88,7 +88,7 @@ CREATE TABLE `comercio` (
   `inm_plantas` varchar(100) NULL,
   `inm_mascotas` varchar(100) NULL,
   `inm_balcon` varchar(100) NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas

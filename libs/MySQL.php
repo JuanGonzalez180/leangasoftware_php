@@ -23,6 +23,7 @@ class MySQL{
         $database = $this->db;
 
         $mysqli = new mysqli($host, $username, $password, $database);
+        $mysqli->set_charset("utf8");
         return $mysqli;
     }
 

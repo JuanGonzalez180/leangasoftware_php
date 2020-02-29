@@ -1,7 +1,7 @@
 <?php
 
 // No mostrar errores
-// error_reporting(-1);
+ error_reporting(-1);
 // error_reporting(E_ALL);
 
 require 'vendor/autoload.php';
@@ -17,9 +17,9 @@ require 'libs/GetSQLValueString.php';
 // Class
 require 'class/comercioInmobiliario.php';
 
-$comercio = new comercioInmobiliario();
+/*$comercio = new comercioInmobiliario();
 
-$funcion = 'aad';
+$funcion = 'import';
 
 if( $funcion == 'clear' ){
     $comercio->clearData();
@@ -58,4 +58,4 @@ if( $funcion == 'export' ){
     
     $result = $comercio->filtrarData( $rangoPrecioMin, $rangoPrecioMax, $habitaciones );
     $comercio->export( $result, $tipoReporte );
-}
+}*/
