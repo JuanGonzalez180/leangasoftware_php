@@ -18,11 +18,18 @@ Prueba PHP
   ```
   > Donde se usan todos los métodos
 
+2.  Este es el endpoint a usar como método GET
+    http://leangasoftware.ideoweinc.com/public/api/filtrarData.php?rangoPrecioMin=500&rangoPrecioMax=700&habitaciones=2
+    
+    Variables:
+    rangoPrecioMin,
+    rangoPrecioMax,
+    habitaciones
 
--Para el punto de Procesar Data, se hace un calculo del radio con la formula MySQL investigada en el siguiente enlace:
+3. Para el punto de Procesar Data, se hace un calculo del radio con la formula MySQL investigada en el siguiente enlace:
   http://www.pabloblanco.es/sql-obtener-coordenadas-en-radio-de-accion/
   
--Se usó la librería dompdf para guardar los reportes.
+4. Se usó la librería dompdf para guardar los reportes.
 
 
 # Ejercicios
