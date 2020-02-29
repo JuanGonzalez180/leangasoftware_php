@@ -2,7 +2,7 @@
     $ver = '?0.001';
     session_start();
 
-    define('_urlSite', 'http://localhost/leangasoftware/leangasoftware_php/');
+    define('_urlSite', 'http://localhost/leangasoftware/leangasoftware_php/public/');
 
     $archivo_actual = 'inicio';
     if(isset($_GET['page'])){

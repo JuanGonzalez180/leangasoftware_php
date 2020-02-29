@@ -80,7 +80,7 @@ CREATE TABLE `comercio` (
   `inm_trastero` varchar(100) NULL,
   `inm_cocina_equipada` varchar(100) NULL,
   `inm_cocina_equipada_2` varchar(100) NULL,
-  `inm_aire_acondicionado` int(11) NULL,
+  `inm_aire_acondicionado` varchar(100) NULL,
   `inm_piscina` varchar(100) NULL,
   `inm_jardin` varchar(100) NULL,
   `inm_metros_cuadrados_utiles` varchar(100) NULL,
