@@ -1,28 +1,35 @@
 # leangasoftware_php
 Prueba PHP
 
-# Entrevista PHP
+# Archivos importantes
+  ```
+  -class
+    -comercioInmobiliario.php
+  ```
+  > Clase con todos los métodos
+  ```
+  -public
+    -reports
+  ```
+  > La carpeta donde quedan guardados todos los reportes
+  ```
+  -public
+    -api
+  ```
+  > Donde se usan todos los métodos
 
-![](https://ienrformacion.es/wp-content/uploads/2019/01/php-codigo-logo.jpg)
+2.  Este es el endpoint a usar como método GET
+    http://leangasoftware.ideoweinc.com/public/api/filtrarData.php?rangoPrecioMin=500&rangoPrecioMax=700&habitaciones=2
+    
+    Variables:
+    rangoPrecioMin,
+    rangoPrecioMax,
+    habitaciones
 
-Bienvenido a tu prueba de __PHP__, a continuación encontrarás una serie de requerimientos con los cuales deberás realizar un ejercicio práctico.
-
-La prueba general se divide en pequeños ejercicios con los cuales se evaluará en práctica:
-- Pensamiento lógico.
-- Resolución de problema.
-- Tiempo de desarrollo.
-- Entre otros.
-
-Se debe manejar POO (Programación Orientada  a Objetos), por lo que deberás crear una clase y esta a su vez debe contener los métodos.
-
-Finalizada la prueba recuerda enviar link del proyecto o tu repositorio a [desarrollo@leangasoftware.es](mailto:desarrollo@leangasoftware.es) con tu información de contacto y en el asunto colocar: PHP-INTERVIEW
-
-
-> Recomendación: No importa terminar todos los ejercicios, lo más importante es la funcionalidad del ejercicio resuelto(s).
-
-### Antes de empezar:
-- Se necesita una base de datos MySQL.
-- [Archivos CSV](https://gist.github.com/leifermendez/627650290d3edaeb420eef50395da73f)
+3. Para el punto de Procesar Data, se hace un calculo del radio con la formula MySQL investigada en el siguiente enlace:
+  http://www.pabloblanco.es/sql-obtener-coordenadas-en-radio-de-accion/
+  
+4. Se usó la librería dompdf para guardar los reportes.
 
 
 # Ejercicios
@@ -85,8 +92,3 @@ __PROBLEMA:__
 __REQUERIMIENTO:__
 Se requiere un endpoint al cual se pasen los atributos de filtro, coordenadas y tipo de reporte (PDF, CSV) y dicho reporte generado se guarda en una carpeta.
 
-
-### Extra.
-Si has llegado hasta este punto, y consideras que tienes tiempo se valora el hecho de que puedas desplegar tu proyecto en [Heroku](https://www.heroku.com/) o en cualquier servidor de tu gusto.
-
-Gracias por participar! 

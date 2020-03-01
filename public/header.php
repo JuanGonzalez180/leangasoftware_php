@@ -15,12 +15,41 @@
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Prueba PHP</a>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Salir</a>
-                </li>
-            </ul>
+            <div class="col-sm-9 col-md-10">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="float: right;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link <?php print ($archivo_actual == 'inicio' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>">
+                                <span data-feather="home"></span>
+                                Importar CSV <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?php print ($archivo_actual == 'filtrar' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>filtrar">
+                                <span data-feather="file"></span>
+                                Filtrar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  <?php print ($archivo_actual == 'procesar' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>procesar">
+                                <span data-feather="shopping-cart"></span>
+                                Procesar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  <?php print ($archivo_actual == 'reportes' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>reportes">
+                                <span data-feather="users"></span>
+                                Reportes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+
 
         <div class="container-fluid">
         <div class="row">
@@ -29,26 +58,26 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link <?php print ($archivo_actual == 'inicio' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>">
-                            <span data-feather="home"></span>
-                            Importar CSV <span class="sr-only">(current)</span>
+                                <span data-feather="home"></span>
+                                Importar CSV <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?php print ($archivo_actual == 'filtrar' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>filtrar">
-                            <span data-feather="file"></span>
-                            Filtrar
+                                <span data-feather="file"></span>
+                                Filtrar
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  <?php print ($archivo_actual == 'procesar' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>procesar">
-                            <span data-feather="shopping-cart"></span>
-                            Procesar
+                                <span data-feather="shopping-cart"></span>
+                                Procesar
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  <?php print ($archivo_actual == 'reportes' ? 'active' : '' ) ?>" href="<?php print _urlSite; ?>reportes">
-                            <span data-feather="users"></span>
-                            Reportes
+                                <span data-feather="users"></span>
+                                Reportes
                             </a>
                         </li>
                     </ul>
